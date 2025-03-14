@@ -1,0 +1,4 @@
+DEMO CREDITS:
+	
+SWAMPLER: https://opengameart.org/content/swampler-3d-ancientbeastcom-creature (CC-BY-SA 3.0)
+LEVEL: https://godotengine.org/asset-library/asset/125
