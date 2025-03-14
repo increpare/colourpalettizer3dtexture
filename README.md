@@ -17,3 +17,7 @@ You can supply anything as a palette - I use screenshots of palletes from asepri
 You can also use screenshots of anything - my suggestion though is to downscale/blur the image in your favourite image editor, and then to reduce the colour palette of the image down to 64/128 colors - otherwise the search process can be *very* slow.
 
 ![image](https://github.com/user-attachments/assets/08f19248-a0c4-4b9f-bb4b-a6f2dab81695)
+
+To tweak the noise, just look at the material attached to ColorRect and play around:
+
+![image](https://github.com/user-attachments/assets/5ffc334a-cd44-48f2-8941-b4f0f23b9ae6)
