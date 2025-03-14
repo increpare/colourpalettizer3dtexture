@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://bd65gdmrwj3ks"]
+
+[ext_resource type="Script" uid="uid://bu4qeq75hjb7r" path="res://Demo/3DTextureColourPalettizer/Scripts/item_select.gd" id="1_djukw"]
+[ext_resource type="PackedScene" uid="uid://dohp772jyjxb7" path="res://Demo/3DTextureColourPalettizer/stage/stage.tscn" id="1_s851h"]
+[ext_resource type="Material" uid="uid://dl6ptpgq8dndd" path="res://Addons/3DTextureColourPalettizer/Materials/palletizer_material.tres" id="2_tjspw"]
+[ext_resource type="Script" uid="uid://1nk3vyf3bpq4" path="res://Addons/3DTextureColourPalettizer/Scripts/palletizer.gd" id="3_lug3g"]
+[ext_resource type="Image" uid="uid://dav42d5udlhuj" path="res://Addons/3DTextureColourPalettizer/Palettes/apollo.png" id="4_lug3g"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Stage" parent="." instance=ExtResource("1_s851h")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.997995, -1.30124e-08, 0.0632956, 0.0268149, 0.905828, 0.422796, -0.0573349, 0.423646, -0.904012, -2.3544, 8.54376, -21.1939)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource("2_tjspw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_lug3g")
+palette_source = ExtResource("4_lug3g")
+
+[node name="ItemList" type="ItemList" parent="." node_paths=PackedStringArray("palettizer")]
+offset_right = 87.0
+offset_bottom = 143.0
+auto_width = true
+auto_height = true
+item_count = 5
+item_0/text = "apollo"
+item_1/text = "arne"
+item_2/text = "cga"
+item_3/text = "mona lisa"
+item_4/text = "nes"
+script = ExtResource("1_djukw")
+palettizer = NodePath("../CanvasLayer/ColorRect")
+
+[connection signal="item_selected" from="ItemList" to="ItemList" method="_on_item_selected"]

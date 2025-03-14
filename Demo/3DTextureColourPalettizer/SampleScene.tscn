@@ -1,0 +1,132 @@
+[gd_scene load_steps=14 format=3 uid="uid://bd65gdmrwj3ks"]
+
+[ext_resource type="PackedScene" uid="uid://ttwq5ps85d0e" path="res://Demo/3DTextureColourPalettizer/Swampler/Swampler.glb" id="1_4bvr7"]
+[ext_resource type="Script" uid="uid://bu4qeq75hjb7r" path="res://Demo/3DTextureColourPalettizer/Scripts/item_select.gd" id="1_djukw"]
+[ext_resource type="Texture2D" uid="uid://bptojwkmntaik" path="res://Demo/3DTextureColourPalettizer/Swampler/textures/diffuse01.png" id="2_fu8cg"]
+[ext_resource type="Material" uid="uid://dl6ptpgq8dndd" path="res://Addons/3DTextureColourPalettizer/Materials/palletizer_material.tres" id="2_tjspw"]
+[ext_resource type="Script" uid="uid://1nk3vyf3bpq4" path="res://Addons/3DTextureColourPalettizer/Scripts/palletizer.gd" id="3_lug3g"]
+[ext_resource type="Texture2D" uid="uid://fyjk0f2gegej" path="res://Demo/3DTextureColourPalettizer/Swampler/textures/subsurface.png" id="3_yyww8"]
+[ext_resource type="Texture2D" uid="uid://b35walrd12476" path="res://Demo/3DTextureColourPalettizer/Swampler/textures/tongue.png" id="4_k2bma"]
+[ext_resource type="Script" uid="uid://blipfy5t6ll1j" path="res://Demo/3DTextureColourPalettizer/rotate.gd" id="5_qfl4q"]
+[ext_resource type="PackedScene" uid="uid://dohp772jyjxb7" path="res://Demo/3DTextureColourPalettizer/stage/stage.tscn" id="10_4bvr7"]
+[ext_resource type="Environment" uid="uid://bh7vne007cjc6" path="res://Demo/3DTextureColourPalettizer/stage/world_environment.tres" id="10_fu8cg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_76wgd"]
+albedo_texture = ExtResource("2_fu8cg")
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 0.45
+subsurf_scatter_skin_mode = true
+subsurf_scatter_texture = ExtResource("3_yyww8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5n22"]
+albedo_texture = ExtResource("4_k2bma")
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_yyww8"]
+dof_blur_far_distance = 7.99
+dof_blur_far_transition = 10.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Swampler" parent="." instance=ExtResource("1_4bvr7")]
+
+[node name="Swampler" parent="Swampler" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_76wgd")
+
+[node name="left eye shell" parent="Swampler/Swampler" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_76wgd")
+
+[node name="left eye" parent="Swampler/Swampler/left eye shell" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_76wgd")
+
+[node name="lower teeth" parent="Swampler/Swampler" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_76wgd")
+
+[node name="right eye shell" parent="Swampler/Swampler" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_76wgd")
+
+[node name="right eye" parent="Swampler/Swampler/right eye shell" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_76wgd")
+
+[node name="tongue" parent="Swampler/Swampler" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_n5n22")
+
+[node name="upper teeth" parent="Swampler/Swampler" index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_76wgd")
+
+[node name="CameraSpinner" type="Node3D" parent="."]
+script = ExtResource("5_qfl4q")
+
+[node name="Camera3D" type="Camera3D" parent="CameraSpinner"]
+transform = Transform3D(0.999275, -0.0128563, -0.0358326, 0.0244042, 0.938741, 0.343758, 0.0292181, -0.344383, 0.938375, 0.133944, 2.38783, 2.23605)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource("2_tjspw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_lug3g")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer" node_paths=PackedStringArray("palettizer")]
+layout_mode = 2
+auto_width = true
+auto_height = true
+item_count = 10
+item_0/text = "none"
+item_1/text = "apollo"
+item_2/text = "arne"
+item_3/text = "c64"
+item_4/text = "cga"
+item_5/text = "eroge_copper"
+item_6/text = "gbc"
+item_7/text = "mario64"
+item_8/text = "mona_lisa"
+item_9/text = "nes"
+script = ExtResource("1_djukw")
+palettizer = NodePath("../../CanvasLayer/ColorRect")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Stage" parent="." instance=ExtResource("10_4bvr7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.995692, -5.95882, 15.1845)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("10_fu8cg")
+camera_attributes = SubResource("CameraAttributesPractical_yyww8")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lights"]
+transform = Transform3D(0.843523, -0.43876, 0.309771, 5.70485e-05, 0.576828, 0.816866, -0.537093, -0.689027, 0.486593, 0, 0, 0)
+light_color = Color(1, 0, 1, 1)
+light_energy = 2.075
+shadow_enabled = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Lights"]
+transform = Transform3D(-0.14819, 0.807769, -0.570569, 5.20706e-06, 0.57694, 0.816787, 0.988959, 0.121037, -0.0855009, 0, 0, 0)
+light_color = Color(0, 0.71411, 0.698017, 1)
+light_energy = 2.075
+shadow_enabled = true
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="Lights"]
+transform = Transform3D(-0.40062, -0.748464, 0.528494, -4.70743e-05, 0.576821, 0.816871, -0.916244, 0.32723, -0.231121, 0, 0, 0)
+light_color = Color(0.958297, 0.457834, 0.161397, 1)
+light_energy = 2.075
+shadow_enabled = true
+
+[connection signal="item_selected" from="VBoxContainer/ItemList" to="VBoxContainer/ItemList" method="_on_item_selected"]
+
+[editable path="Swampler"]
+[editable path="Stage"]
